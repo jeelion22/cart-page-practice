@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
 import Card from "./Card";
-import Quantity from "./Quantity";
 
 function Cart({ prdts, remove }) {
+  const [cartAmount, setCartAmount] = useState([]);
+  const [total, setTotal] = useState(0);
+
+  const handleTotal = (data) => {
+    setCartAmount([...cartAmount, data]);
+  };
+
   return (
     <table className="table table-success">
       <thead>
@@ -13,8 +20,17 @@ function Cart({ prdts, remove }) {
         </tr>
       </thead>
       <tbody>
-        {prdts.map((product, index) => {
-          return <Card product={product} key={index} remove={remove} />;
+        {prdts.map((product) => {
+          return (
+            <Card
+              product={product}
+              key={product.id}
+              remove={remove}
+              handleTotal={handleTotal}
+              setCartAmount={setCartAmount}
+              cartAmount={cartAmount}
+            />
+          );
         })}
       </tbody>
       <tfoot className="sticky-bottom">
@@ -27,8 +43,17 @@ function Cart({ prdts, remove }) {
           <td colSpan={2}>FREE</td>
         </tr>
         <tr>
-          <td colSpan={2}>TOTAL</td>
-          <td colSpan={2}>$</td>
+          <td colSpan={2}>
+            TOTAL{" "}
+            <button
+              onClick={() => {
+                console.log(cartAmount);
+              }}
+            >
+              Click me!
+            </button>
+          </td>
+          <td colSpan={2}>${total}</td>
         </tr>
       </tfoot>
     </table>
