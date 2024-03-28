@@ -1,31 +1,20 @@
 import React, { useEffect, useState } from "react";
 
-function Card({ product, remove, handleTotal, setCartAmount, cartAmount }) {
+function Card({ product, remove, handleTotal }) {
   const [qty, setQty] = useState(1);
-  const [price, setPrice] = useState(product.price);
 
   useEffect(() => {
-    setCartAmount([...cartAmount, price]);
-  }, []);
+    return () => handleTotal(product.price);
+  }, [product.price]);
 
   const handleDecrement = () => {
-    qty > 1 && setQty((qty) => qty - 1);
-
-    setPrice(qty * product.price);
-
-    handleTotal(price);
+    qty > 1 && (setQty((qty) => qty - 1), handleTotal(-product.price));
   };
 
   const handleIncrement = () => {
-    if (product.stock - qty > 0) {
-      setQty((qty) => qty + 1);
-
-      setPrice(qty * product.price);
-
-      handleTotal(price);
-    }
+    product.stock - qty > 0 &&
+      (setQty((qty) => qty + 1), handleTotal(product.price));
   };
-
   return (
     <tr>
       <td>

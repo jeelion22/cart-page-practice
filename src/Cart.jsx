@@ -3,11 +3,10 @@ import { useState } from "react";
 import Card from "./Card";
 
 function Cart({ prdts, remove }) {
-  const [cartAmount, setCartAmount] = useState([]);
   const [total, setTotal] = useState(0);
 
-  const handleTotal = (data) => {
-    setCartAmount([...cartAmount, data]);
+  const handleTotal = (price) => {
+    setTotal((total) => total + price);
   };
 
   return (
@@ -27,8 +26,6 @@ function Cart({ prdts, remove }) {
               key={product.id}
               remove={remove}
               handleTotal={handleTotal}
-              setCartAmount={setCartAmount}
-              cartAmount={cartAmount}
             />
           );
         })}
@@ -43,16 +40,7 @@ function Cart({ prdts, remove }) {
           <td colSpan={2}>FREE</td>
         </tr>
         <tr>
-          <td colSpan={2}>
-            TOTAL{" "}
-            <button
-              onClick={() => {
-                console.log(cartAmount);
-              }}
-            >
-              Click me!
-            </button>
-          </td>
+          <td colSpan={2}>TOTAL </td>
           <td colSpan={2}>${total}</td>
         </tr>
       </tfoot>
