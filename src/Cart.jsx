@@ -1,16 +1,14 @@
 import React from "react";
 import Card from "./Card";
-import Select from "./Select";
+import Quantity from "./Quantity";
 
 function Cart({ prdts, remove }) {
   return (
     <table className="table table-success">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Handle</th>
+          <th scope="col" colSpan={5}>Cart</th>
+         
         </tr>
       </thead>
       <tbody>
@@ -18,28 +16,16 @@ function Cart({ prdts, remove }) {
           return (
             <>
               <tr>
-                <th scope="row" rowSpan={2}>
+                <th scope="row">
                   {product.id}
                 </th>
-                <td rowSpan={2}>
+                <td>
                   <Card key={index} product={product} />
                 </td>
-                <td rowSpan={2}>
-                  <Select key={index} product={product} />
-                </td>
-                <td>${product.price}.00</td>
+
+                <Quantity key={index} product={product} remove={remove}/>
               </tr>
-              <tr>
-                <td>
-                  <button
-                    onClick={() => {
-                      remove(product);
-                    }}
-                  >
-                    Remove
-                  </button>
-                </td>
-              </tr>
+              
             </>
           );
         })}

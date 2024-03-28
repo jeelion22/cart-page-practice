@@ -6,6 +6,7 @@ import Cart from "./Cart";
 function App() {
   const [prdts, setPrdts] = useState([]);
 
+
   const products = [
     {
       id: 1,
