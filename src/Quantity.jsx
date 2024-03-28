@@ -13,27 +13,21 @@ function Quantity({ product, remove }) {
     }
   };
   return (
-    <>
-      <td >
-        <button onClick={handleDecrement}>-</button>
-        {qty}
-        <button onClick={handleIncrement}>+</button>
-      </td>
-      <td>
-        <td>${qty * product.price}.00</td>
-      </td>
-      
-        <td>
-          <button
-            onClick={() => {
-              remove(product);
-            }}
-          >
-            Remove
-          </button>
-        </td>
-     
-    </>
+    <td>
+      <button onClick={handleDecrement}>-</button>
+      {qty}
+      <button onClick={handleIncrement}>+</button>
+
+      <p>${qty * product.price}.00</p>
+
+      <button
+        onClick={() => {
+          remove(product);
+        }}
+      >
+        Remove
+      </button>
+    </td>
   );
 }
 

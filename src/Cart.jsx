@@ -7,27 +7,14 @@ function Cart({ prdts, remove }) {
     <table className="table table-success">
       <thead>
         <tr>
-          <th scope="col" colSpan={5}>Cart</th>
-         
+          <th scope="col" colSpan={5}>
+            Cart
+          </th>
         </tr>
       </thead>
       <tbody>
         {prdts.map((product, index) => {
-          return (
-            <>
-              <tr>
-                <th scope="row">
-                  {product.id}
-                </th>
-                <td>
-                  <Card key={index} product={product} />
-                </td>
-
-                <Quantity key={index} product={product} remove={remove}/>
-              </tr>
-              
-            </>
-          );
+          return <Card product={product} key={index} remove={remove} />;
         })}
       </tbody>
       <tfoot className="sticky-bottom">
