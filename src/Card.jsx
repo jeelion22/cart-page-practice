@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from "react";
 
-function Card({ product, remove, handleTotal }) {
+function Card({ product, remove, handleTotal, deductAmt, setDeductAmt }) {
   const [qty, setQty] = useState(1);
+
+  useEffect(()=>{return ()=>deductAmt}, [])
 
   useEffect(() => {
     return () => handleTotal(product.price);
-  }, [product.price]);
+  }, []);
 
   const handleDecrement = () => {
-    qty > 1 && (setQty((qty) => qty - 1), handleTotal(-product.price));
+    qty > 1 &&
+      (setQty((qty) => qty - 1),
+      handleTotal(-product.price),
+      setDeductAmt(qty * product.price));
   };
 
   const handleIncrement = () => {
     product.stock - qty > 0 &&
-      (setQty((qty) => qty + 1), handleTotal(product.price));
+      (setQty((qty) => qty + 1),
+      handleTotal(product.price),
+      setDeductAmt(qty * product.price));
   };
   return (
     <tr>
@@ -52,7 +59,7 @@ function Card({ product, remove, handleTotal }) {
       <td>
         <button
           onClick={() => {
-            remove(product);
+            remove(product, deductAmt);
           }}
         >
           Remove

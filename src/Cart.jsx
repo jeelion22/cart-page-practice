@@ -2,8 +2,19 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import Card from "./Card";
 
-function Cart({ prdts, remove }) {
+function Cart({ products }) {
   const [total, setTotal] = useState(0);
+  const [prdts, setPrdts] = useState([]);
+  const [deductAmt, setDeductAmt] = useState(0);
+
+  useEffect(() => {
+    setPrdts(products);
+  }, []);
+
+  const remove = (removeItem, deductAmt) => {
+    setPrdts(prdts.filter((item) => item.id != removeItem.id));
+    setTotal((total) => total - deductAmt);
+  };
 
   const handleTotal = (price) => {
     setTotal((total) => total + price);
@@ -26,6 +37,8 @@ function Cart({ prdts, remove }) {
               key={product.id}
               remove={remove}
               handleTotal={handleTotal}
+              deductAmt={deductAmt}
+              setDeductAmt={setDeductAmt}
             />
           );
         })}

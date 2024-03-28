@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import Cart from "./Cart";
 
 function App() {
-  const [prdts, setPrdts] = useState([]);
-
   const products = [
     {
       id: 1,
@@ -98,17 +96,9 @@ function App() {
     },
   ];
 
-  useEffect(() => {
-    setPrdts(products);
-  }, []);
-
-  const remove = (removeItem) => {
-    setPrdts(prdts.filter((item) => item.id != removeItem.id));
-  };
-
   return (
     <>
-      <Cart prdts={prdts} remove={remove} />
+      <Cart products={products} />
     </>
   );
 }
